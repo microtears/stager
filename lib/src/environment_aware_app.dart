@@ -30,6 +30,8 @@ class EnvironmentAwareApp extends StatelessWidget {
     super.key,
     required this.home,
     this.localizationsDelegates,
+    this.theme,
+    this.darkTheme,
   });
 
   /// The widget wrapped by this app.
@@ -39,13 +41,20 @@ class EnvironmentAwareApp extends StatelessWidget {
   /// [MaterialApp].
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
+  /// The default theme of this app.
+  final ThemeData? theme;
+
+  /// The dark theme of this app.
+  final ThemeData? darkTheme;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       useInheritedMediaQuery: true,
-      theme: ThemeData.light().copyWith(platform: Theme.of(context).platform),
-      darkTheme:
-          ThemeData.dark().copyWith(platform: Theme.of(context).platform),
+      theme: (theme ?? ThemeData.light())
+          .copyWith(platform: Theme.of(context).platform),
+      darkTheme: (darkTheme ?? ThemeData.dark())
+          .copyWith(platform: Theme.of(context).platform),
       home: home,
       localizationsDelegates: localizationsDelegates,
     );
